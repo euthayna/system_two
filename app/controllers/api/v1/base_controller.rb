@@ -5,6 +5,7 @@ module Api
     class BaseController < ApplicationController
       include ErrorHandling
       include ClientAuthentication
+      include TokenAuthentication
 
       before_action :authenticate_client
 
