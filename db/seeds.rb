@@ -57,4 +57,8 @@ ContractsCatalog::MonthlyResourceConsumption.create!([
   }
 ])
 
+# Criação de Clientes
+# Client.create!(name: 'Frontend App 1')
+# Client.create!(name: 'Frontend App 2')
+
 puts "Seed data created successfully!"
