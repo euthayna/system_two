@@ -6,17 +6,17 @@ module Api
 
         def index
           @contracts = ::ContractsCatalog::Contract.all
-          render json: @contracts
+          render json: ::ContractsCatalog::ContractSerializer.new(@contracts).serializable_hash
         end
 
         def show
-          render json: @contract
+          render json: ::ContractsCatalog::ContractSerializer.new(@contract).serializable_hash
         end
 
         def create
           @contract = ::ContractsCatalog::Contract.new(contract_params)
           if @contract.save
-            render json: @contract, status: :created
+            render json: ::ContractsCatalog::ContractSerializer.new(@contract).serializable_hash, status: :created
           else
             render json: @contract.errors, status: :unprocessable_entity
           end
@@ -42,7 +42,7 @@ module Api
         end
 
         def contract_params
-          params.require(:contract).permit(:tenant_id, :product_id, :price_id, :start_date, :end_date, :status)
+          params.require(:data).require(:attributes).permit(:tenant_id, :product_id, :price_id, :start_date, :end_date, :status)
         end
       end
     end

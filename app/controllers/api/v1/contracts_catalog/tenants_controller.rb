@@ -6,18 +6,17 @@ module Api
 
         def index
           @tenants = ::ContractsCatalog::Tenant.all
-          render json: @tenants
+          render json: ::ContractsCatalog::TenantSerializer.new(@tenants).serializable_hash
         end
 
         def show
-          render json: @tenant
+          render json: ::ContractsCatalog::TenantSerializer.new(@tenant).serializable_hash
         end
 
         def create
           @tenant = ::ContractsCatalog::Tenant.new(tenant_params)
-
           if @tenant.save
-            render json: @tenant, status: :created
+            render json: ::ContractsCatalog::TenantSerializer.new(@tenant).serializable_hash, status: :created
           else
             render json: @tenant.errors, status: :unprocessable_entity
           end
@@ -43,7 +42,7 @@ module Api
         end
 
         def tenant_params
-          params.require(:tenant).permit(:first_name, :last_name, :email)
+          params.require(:data).require(:attributes).permit(:first_name, :last_name, :email)
         end
       end
     end

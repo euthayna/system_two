@@ -11,7 +11,7 @@ gem "pg"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 6.0"
-
+gem 'jsonapi-serializer'
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 

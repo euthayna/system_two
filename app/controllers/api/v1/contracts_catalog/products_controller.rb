@@ -6,17 +6,17 @@ module Api
 
         def index
           @products = ::ContractsCatalog::Product.all
-          render json: @products
+          render json: ::ContractsCatalog::ProductSerializer.new(@products).serializable_hash
         end
 
         def show
-          render json: @product
+          render json: ::ContractsCatalog::ProductSerializer.new(@product).serializable_hash
         end
 
         def create
           @product = ::ContractsCatalog::Product.new(product_params)
           if @product.save
-            render json: @product, status: :created
+            render json: ::ContractsCatalog::ProductSerializer.new(@product).serializable_hash, status: :created
           else
             render json: @product.errors, status: :unprocessable_entity
           end
@@ -42,7 +42,7 @@ module Api
         end
 
         def product_params
-          params.require(:product).permit(:name, :description, :use_unity)
+          params.require(:data).require(:attributes).permit(:name, :description, :use_unity)
         end
       end
     end

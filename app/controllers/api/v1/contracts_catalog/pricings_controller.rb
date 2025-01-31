@@ -6,17 +6,17 @@ module Api
 
         def index
           @pricings = ::ContractsCatalog::Pricing.all
-          render json: @pricings
+          render json: ::ContractsCatalog::PricingSerializer.new(@pricings).serializable_hash
         end
 
         def show
-          render json: @pricing
+          render json: ::ContractsCatalog::PricingSerializer.new(@pricing).serializable_hash
         end
 
         def create
           @pricing = ::ContractsCatalog::Pricing.new(pricing_params)
           if @pricing.save
-            render json: @pricing, status: :created
+            render json: ::ContractsCatalog::PricingSerializer.new(@pricing).serializable_hash, status: :created
           else
             render json: @pricing.errors, status: :unprocessable_entity
           end
@@ -42,7 +42,7 @@ module Api
         end
 
         def pricing_params
-          params.require(:pricing).permit(:product_id, :price_per_unit, :currency)
+          params.require(:data).require(:attributes).permit(:product_id, :price_per_unit, :currency)
         end
       end
     end
