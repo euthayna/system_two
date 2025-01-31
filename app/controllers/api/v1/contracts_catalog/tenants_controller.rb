@@ -1,7 +1,7 @@
 module Api
   module V1
     module ContractsCatalog
-      class TenantsController < ApplicationController
+      class TenantsController < BaseController
         before_action :set_tenant, only: [:show, :update, :destroy]
 
         def index

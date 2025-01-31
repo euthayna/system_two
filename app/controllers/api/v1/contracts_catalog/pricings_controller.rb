@@ -1,7 +1,7 @@
 module Api
   module V1
     module ContractsCatalog
-      class PricingsController < ApplicationController
+      class PricingsController < BaseController
         before_action :set_pricing, only: [:show, :update, :destroy]
 
         def index
